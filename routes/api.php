@@ -26,3 +26,5 @@ Route::post('/login',[AuthController::class,'login']);
 Route::get('/student/enroll/list/{id}',[EnrollController::class,'printEnrollments']);
 Route::get('/course/student/list/{csid}',[CourseController::class,'printCoursStudnetList']);
 Route::get('/course/all/',[CourseController::class,'printAllCourse']);
+Route::get('/student/course/result/{sid}',[\App\Http\Controllers\ResultController::class,'getStudentResult']);
+Route::get('/drop/course/{enrid}',[\App\Http\Controllers\CourseController::class,'dropCourse']);

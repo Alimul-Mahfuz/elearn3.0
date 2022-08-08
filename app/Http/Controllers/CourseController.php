@@ -13,16 +13,23 @@ class CourseController extends Controller
     {
         $coursestudentinfo=array();
         $enrolls=Enroll::where('course_id',$csid)->get();
+        $courseinfo=Course::find($csid);
         foreach ($enrolls as $enroll){
             $student=$enroll->student()->first();
             $coursestudentinfo[] = $student;
         }
-        return response()->json($coursestudentinfo,200);
+        return response()->json(["crsinfo"=>$courseinfo,"crsstdinfo"=>$coursestudentinfo],200);
     }
     //Print all the course where active status is 1 and t_id is not null
     function printAllCourse(): \Illuminate\Http\JsonResponse
     {
         $couses=Course::where('status',1)->whereNotNull('t_id')->get();
         return response()->json($couses,200);
+    }
+
+    function dropCourse($enrid){
+        $enroll=Enroll::find($enrid);
+        $enroll->delete();
+        return response()->json(['msg'=>"Course dropped"],200);
     }
 }

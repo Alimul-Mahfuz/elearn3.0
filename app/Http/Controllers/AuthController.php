@@ -69,22 +69,22 @@ class AuthController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors(),422);
         }
-        else{
-            $acct=Account::where('email',$req->email)->where('password',$req->password)->first();
-            if(!empty($acct))
-            {
-                $tok=new Authtoken();
-                $key = Str::random(64);
-                $tok->acc_id=$acct->acc_id;
-                $tok->token=$key;
-                $tok->created_at = new Datetime();
-                $tok->save();
-                return response()->json(["id"=>$acct->acc_id],200);
+       else{
+           $acct=Account::where('email',$req->email)->where('password',$req->password)->first();
+           if(!empty($acct))
+           {
+               $tok=new Authtoken();
+               $key = Str::random(64);
+               $tok->acc_id=$acct->acc_id;
+               $tok->token=$key;
+               $tok->created_at = new Datetime();
+               $tok->save();
+               return response()->json(["id"=>$acct->acc_id],200);
 
-            }
-            else{
-                return response()->json(["msg"=>"Account doesn't exist"],403);
-            }
-        }
+           }
+           else{
+               return response()->json(["msg"=>"Account doesn't exist"],403);
+           }
+       }
     }
 }
