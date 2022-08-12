@@ -12,11 +12,11 @@ class Authtoken extends Model
      */
 
     protected $table='authtokens';
-    protected $primaryKey='acc_id';
+    protected $primaryKey='token_id';
     public $timestamps=false;
     use HasFactory;
 
-    public function account(): BelongsTo
+    public function account()
     {
         return $this->belongsTo(Account::class,'acc_id');
     }

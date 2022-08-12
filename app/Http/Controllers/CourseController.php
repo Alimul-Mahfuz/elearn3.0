@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
     //Recived course_id and return all studnet details under the course
-    function printCoursStudnetList($csid): \Illuminate\Http\JsonResponse
+    function printCoursStudnetList($cs_id): \Illuminate\Http\JsonResponse
     {
         $coursestudentinfo=array();
-        $enrolls=Enroll::where('course_id',$csid)->get();
-        $courseinfo=Course::find($csid);
+        $enrolls=Enroll::where('course_id',$cs_id)->get();
+        $courseinfo=Course::find($cs_id);
         foreach ($enrolls as $enroll){
             $student=$enroll->student()->first();
             $coursestudentinfo[] = $student;
