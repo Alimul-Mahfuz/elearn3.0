@@ -20,7 +20,9 @@ class EnrollController extends Controller
                 "coursename"=>$course->name,
                 "duration"=>$course->duration,
                 "tname"=>$teacher->name,
-                "tmail"=>$teacher->email
+                "tmail"=>$teacher->email,
+                "enrid"=>$enroll->enroll_id,
+                "csid"=>$course->course_id
 
             ];
             $courseinfo[] = $info;
@@ -30,8 +32,5 @@ class EnrollController extends Controller
     }
 
     //Enroll
-    function enrollCourse($sid,$cid,$pid){
 
-
-    }
 }

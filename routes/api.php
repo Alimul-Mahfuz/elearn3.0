@@ -58,4 +58,5 @@ Route::get('/student/course/result/{sid}',[\App\Http\Controllers\ResultControlle
 Route::post('/change/password/{aid}',[AuthController::class,'changepasswordstudent']);
 Route::post('/student/enroll/payment/{sid}/{csid}',[PaymentController::class,'studentpayment']);
 Route::delete('/drop/course/{enrid}',[\App\Http\Controllers\CourseController::class,'dropCourse']);
+Route::get('/course/info/{csid}',[\App\Http\Controllers\CourseController::class,'courseinfo']);
 

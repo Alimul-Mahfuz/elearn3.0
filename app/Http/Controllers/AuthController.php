@@ -54,10 +54,10 @@ class AuthController extends Controller
             $tok->token = $key;
             $tok->created_at = new Datetime();
             if($tok->save()){
-                return response()->json(["token" => $key, "type" => $acct->type,"stid"=>$student->student_id], 200);
+                return response()->json(["token" => $key, "type" => $acct->type,"stdid"=>$student->student_id,"stdname"=>$student->name], 200);
             }
             else{
-                return response()->json(['msg'=>'Something went wrong']);
+                return response()->json(['msg'=>'Something went wrong'],403);
             }
 
         }

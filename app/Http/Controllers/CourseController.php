@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Enroll;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -31,5 +32,10 @@ class CourseController extends Controller
         $enroll=Enroll::find($enrid);
         $enroll->delete();
         return response()->json(['msg'=>"Course dropped"],200);
+    }
+
+    function courseinfo($csid){
+        $courseinfo=Course::with('teacher')->find($csid);
+        return response()->json([$courseinfo],200);
     }
 }
