@@ -37,8 +37,13 @@ class PaymentController extends Controller
             $enroll->student_id=$sid;
             $enroll->paymentid=$payment->paymentid;
             $enroll->date=new DateTime();
-            $enroll->save();
-            return response()->json(['msg'=>"Enrolled"],200);
+            if($enroll->save()){
+                return response()->json(['msg'=>"Enrolled"],200);
+            }
+            else{
+                return response()->json(['msg'=>"Something went wrong"],502);
+            }
+            
         }
     }
 
