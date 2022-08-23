@@ -34,8 +34,9 @@ class CourseController extends Controller
         return response()->json(['msg'=>"Course dropped"],200);
     }
 
-    function courseinfo($csid){
+    function courseteacherinfo($csid){
         $courseinfo=Course::with('teacher')->find($csid);
-        return response()->json([$courseinfo],200);
+        return response()->json($courseinfo,200);
     }
+
 }

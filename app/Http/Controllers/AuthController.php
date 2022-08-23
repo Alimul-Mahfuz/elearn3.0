@@ -89,7 +89,7 @@ class AuthController extends Controller
             }
         }
     }
-    //Logut 
+    //Logut
     function logout(Request $req)
     {
         $key = $req->token;
@@ -118,5 +118,10 @@ class AuthController extends Controller
                 return response()->json(["msg" => "Account doesn't exist"], 403);
             }
         }
+    }
+
+    function studentprofile($sid){
+        $stdinfo = Student::with('account')->find($sid);
+        return response()->json($stdinfo,200);
     }
 }
