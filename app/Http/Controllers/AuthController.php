@@ -15,8 +15,6 @@ class AuthController extends Controller
 {
     //Every authentication code will go here like teacher-login, student-login,registration
     /*and co-coordinator login, password checking and token passing also will be done here.*/
-
-
     function studentRegister(Request $req)
     {
         $validator = Validator::make($req->all(), [
@@ -63,7 +61,7 @@ class AuthController extends Controller
         }
     }
 
-
+    // Login
     function login(Request $req)
     {
         $validator = Validator::make($req->all(), [
@@ -89,6 +87,16 @@ class AuthController extends Controller
             } else {
                 return response()->json(["msg" => "Account doesn't exist"], 403);
             }
+        }
+    }
+    //Logut 
+    function logout(Request $req)
+    {
+        $key = $req->token;
+        if($key){
+            $tk = AuthToken::where("token",$key)->first();
+            $tk->expired_at = new Datetime();
+            $tk->save();
         }
     }
     function changepasswordstudent(Request $req, $accid)

@@ -36,6 +36,9 @@ Route::post('/registration/student/',[AuthController::class,'studentRegister']);
 and account's type will be returned as response*/
 Route::post('/login',[AuthController::class,'login']);
 
+/*Received any request from request token header and find the token on token database.then expired the token validity so that the user cannot access any logged contents*/
+Route::any('/logout',[AuthController::class,'logout']);
+
 
 /*Parameterized route take mandatory argument student_id and return all enrolled course's coursename,duration,
 tname,tamil of that particular student in array format*/
