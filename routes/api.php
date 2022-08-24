@@ -54,12 +54,12 @@ Route::get('/course/student/list/{cs_id}',[CourseController::class,'printCoursSt
 /*Return all an array of objects contains course_id, name, duration, price, status and banner's image url*/
 Route::get('/course/all/',[CourseController::class,'printAllCourse']);
 
-/*Mandetory parameter student_id and get all result of that student*/
+/*Mandatory parameter student_id and get all result of that student*/
 Route::get('/student/course/result/{sid}',[\App\Http\Controllers\ResultController::class,'getStudentResult']);
 
 //For changing password
 Route::post('/change/password/{aid}',[AuthController::class,'changepasswordstudent']);
-//For enrolling student after successfull payment
+//For enrolling student after successfully payment
 Route::post('/student/enroll/payment/{sid}/{csid}',[PaymentController::class,'studentpayment']);
 //Delete a student if the student wish to drop the course
 Route::delete('/drop/course/{enrid}',[\App\Http\Controllers\CourseController::class,'dropCourse']);
@@ -68,5 +68,8 @@ Route::get('/course/teacher/info/{csid}',[\App\Http\Controllers\CourseController
 
 //Get student profile information
 Route::get('/student/profile/{sid}',[AuthController::class,'studentprofile']);
+
+//cv submission for teacher
+Route::post('/registration/submit/cv',[AuthController::class,'submitcv']);
 
 

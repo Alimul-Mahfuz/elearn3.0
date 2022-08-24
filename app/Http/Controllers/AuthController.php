@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\Authtoken;
 use App\Models\Student;
+use App\Models\Apply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Str;
 use Datetime;
+use Psy\Util\Json;
 
 class AuthController extends Controller
 {
@@ -59,6 +61,7 @@ class AuthController extends Controller
             }
 
         }
+
     }
 
     // Login
@@ -119,9 +122,36 @@ class AuthController extends Controller
             }
         }
     }
-
     function studentprofile($sid){
         $stdinfo = Student::with('account')->find($sid);
         return response()->json($stdinfo,200);
+    }
+
+    //submit teacher registration cv
+    function submitcv(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            "fullname" => "required",
+            "email" => "required",
+            "cv" => "required|mimes:docx,doc,pdf"
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        } else {
+            $apply = new Apply();
+            $name =  $req->file('cv')->getClientOriginalName();
+            $name =  $req->email;
+            $ext = $req->file('cv')->getClientOriginalExtension();
+            $path = "cvs/";
+            $file_name  = time() . "_$name." . $ext;
+            $req->file('cv')->storeAs('public/' . $path, $file_name);
+            $pathstring = 'storage/' . $path . $file_name;
+            $apply->fullname=$req->fullname;
+            $apply->email=$req->email;
+            $apply->cv=$pathstring;
+            $apply->save();
+            return response()->json(["cv_path"=>$pathstring],200);
+        }
+
     }
 }
